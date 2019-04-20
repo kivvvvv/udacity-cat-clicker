@@ -105,11 +105,28 @@
       this.adminForm = document.querySelector("#admin-form");
       this.cancelBtn = document.querySelector("#cancel-form");
 
-      if (octopus.getAdmin()) {
+      this.render(octopus.getAdmin());
+      this.bindControl();
+    },
+    render: function(isAdmin) {
+      if (isAdmin) {
         this.adminBtn.style.display = "inline-block";
       } else {
         this.adminBtn.style.display = "none";
       }
+    },
+    bindControl: function() {
+      this.adminBtn.addEventListener("click", e => {
+        e.target.style.display = "none";
+        this.adminForm.style.display = "block";
+      });
+
+      this.adminForm.addEventListener("submit", function() {});
+
+      this.cancelBtn.addEventListener("click", () => {
+        this.adminForm.style.display = "none";
+        this.adminBtn.style.display = "inline-block";
+      });
     }
   };
 
