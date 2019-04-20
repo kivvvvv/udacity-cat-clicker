@@ -39,6 +39,7 @@ const catImages = [
 window.onload = () => {
   imgCatEl.setAttribute("src", catImages[0].url);
   catNameEl.textContent = catImages[0].pictureName;
+  countEl.textContent = 0;
 };
 
 listCatEl.addEventListener("click", e => {
@@ -48,14 +49,14 @@ listCatEl.addEventListener("click", e => {
 
   imgCatEl.setAttribute("src", selectedCat.url);
   catNameEl.textContent = selectedCat.pictureName;
+  countEl.textContent = selectedCat.clickCount;
 });
 
-imgCatEl.addEventListener(
-  "click",
-  (function() {
-    let count = 0;
-    return () => {
-      countFirstCatEl.textContent = ++count;
-    };
-  })()
-);
+imgCatEl.addEventListener("click", e => {
+  const selectedCat = catImages.find(
+    cat => cat.url === e.target.getAttribute("src")
+  );
+
+  selectedCat.clickCount++;
+  countEl.textContent = selectedCat.clickCount;
+});
