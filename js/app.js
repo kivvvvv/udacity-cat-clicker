@@ -1,39 +1,42 @@
 (function() {
-  const catModel = [
-    {
-      catName: "Chewie",
-      url: "./img/cat-chewie.jpg",
-      pictureName: "Chewie the Cat",
-      clickCount: 0
-    },
-    {
-      catName: "Max",
-      url: "./img/kitten-max.jpg",
-      pictureName: "Little Max",
-      clickCount: 0
-    },
-    {
-      catName: "Tigger",
-      url: "./img/cat-tigger.jpg",
-      pictureName: "Tigger the Cat",
-      clickCount: 0
-    },
-    {
-      catName: "Tom",
-      url: "./img/cat-tom.jpg",
-      pictureName: "Tom the Cat",
-      clickCount: 0
-    },
-    {
-      catName: "Xuxa",
-      url: "./img/kitten-xuxa.jpg",
-      pictureName: "Little Xuxa",
-      clickCount: 0
-    }
-  ];
+  const model = {
+    isAdmin: true,
+    cats: [
+      {
+        catName: "Chewie",
+        url: "./img/cat-chewie.jpg",
+        pictureName: "Chewie the Cat",
+        clickCount: 0
+      },
+      {
+        catName: "Max",
+        url: "./img/kitten-max.jpg",
+        pictureName: "Little Max",
+        clickCount: 0
+      },
+      {
+        catName: "Tigger",
+        url: "./img/cat-tigger.jpg",
+        pictureName: "Tigger the Cat",
+        clickCount: 0
+      },
+      {
+        catName: "Tom",
+        url: "./img/cat-tom.jpg",
+        pictureName: "Tom the Cat",
+        clickCount: 0
+      },
+      {
+        catName: "Xuxa",
+        url: "./img/kitten-xuxa.jpg",
+        pictureName: "Little Xuxa",
+        clickCount: 0
+      }
+    ]
+  };
 
   const octopus = {
-    getData: () => catModel,
+    getCats: () => model.cats,
     init: () => {
       catListView.init();
       catDetailView.init();
@@ -44,7 +47,7 @@
     init: function() {
       this.listCatEl = document.querySelector("#cat-list");
 
-      const catData = octopus.getData();
+      const catData = octopus.getCats();
       this.render(catData);
       this.bindControl(catData);
     },
@@ -73,7 +76,7 @@
       this.countEl = document.querySelector("#count");
       this.catNameEl = document.querySelector("figcaption");
 
-      const catData = octopus.getData();
+      const catData = octopus.getCats();
       this.render(catData[0]);
       this.bindControl(catData);
     },
