@@ -33,45 +33,56 @@
   ];
 
   const octopus = {
-    getData: () => catModel
+    getData: () => catModel,
+    init: () => {
+      catListView.init();
+      catDetailView.init();
+    }
   };
 
-  const view = {
+  const catListView = {
     init: function() {
       this.listCatEl = document.querySelector("#cat-list");
-      this.imgCatEl = document.querySelector("#cat");
-      this.countEl = document.querySelector("#count");
-      this.catNameEl = document.querySelector("figcaption");
-
-      this.renderCatList(octopus.getData());
 
       const catData = octopus.getData();
-      this.renderCatDetails(catData[0]);
-
-      this.bindCatList(catData);
+      this.render(catData);
+      this.bindControl(catData);
     },
-    renderCatList: function(catModel) {
-      catModel.forEach(cat => {
+    render: function(catData) {
+      catData.forEach(cat => {
         const catItemEl = document.createElement("li");
         catItemEl.textContent = cat.catName;
 
         this.listCatEl.appendChild(catItemEl);
       });
     },
-    renderCatDetails: function(cat) {
-      this.imgCatEl.setAttribute("src", cat.url);
-      this.catNameEl.textContent = cat.pictureName;
-      this.countEl.textContent = cat.clickCount;
-    },
-    bindCatList: function(catData) {
+    bindControl: function(catData) {
       this.listCatEl.addEventListener("click", e => {
         const selectedCat = catData.find(
           cat => cat.catName === e.target.textContent
         );
 
-        this.renderCatDetails(selectedCat);
+        catDetailView.render(selectedCat);
       });
+    }
+  };
 
+  const catDetailView = {
+    init: function() {
+      this.imgCatEl = document.querySelector("#cat");
+      this.countEl = document.querySelector("#count");
+      this.catNameEl = document.querySelector("figcaption");
+
+      const catData = octopus.getData();
+      this.render(catData[0]);
+      this.bindControl(catData);
+    },
+    render: function(cat) {
+      this.imgCatEl.setAttribute("src", cat.url);
+      this.catNameEl.textContent = cat.pictureName;
+      this.countEl.textContent = cat.clickCount;
+    },
+    bindControl: function(catData) {
       this.imgCatEl.addEventListener("click", e => {
         const selectedCat = catData.find(
           cat => cat.url === e.target.getAttribute("src")
@@ -83,5 +94,5 @@
     }
   };
 
-  window.onload = () => view.init();
+  window.onload = () => octopus.init();
 })();
