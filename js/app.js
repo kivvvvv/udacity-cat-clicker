@@ -1,24 +1,27 @@
-const imgFirstCatEl = document.querySelector("#cat1");
-const imgSecondCatEl = document.querySelector("#cat2");
-const countFirstCatEl = document.querySelector("#count1");
-const countSecondCatEl = document.querySelector("#count2");
+const listCatEl = document.querySelector("#cat-list");
+const imgCatEl = document.querySelector("#cat");
+const countEl = document.querySelector("#count");
 
-imgFirstCatEl.addEventListener(
+const catImages = [
+  { catName: "Chewie", url: "./img/cat-chewie.jpg" },
+  { catName: "Max", url: "./img/kitten-max.jpg" },
+  { catName: "Tigger", url: "./img/cat-tigger.jpg" },
+  { catName: "Tom", url: "./img/cat-tom.jpg" },
+  { catName: "Xuxa", url: "./img/kitten-xuxa.jpg" }
+];
+
+listCatEl.addEventListener("click", e => {
+  const catUrl = catImages.find(cat => cat.catName === e.target.textContent);
+
+  imgCatEl.setAttribute("src", catUrl.url);
+});
+
+imgCatEl.addEventListener(
   "click",
   (function() {
     let count = 0;
     return () => {
       countFirstCatEl.textContent = ++count;
-    };
-  })()
-);
-
-imgSecondCatEl.addEventListener(
-  "click",
-  (function() {
-    let count = 0;
-    return () => {
-      countSecondCatEl.textContent = ++count;
     };
   })()
 );
