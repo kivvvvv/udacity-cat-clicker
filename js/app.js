@@ -37,9 +37,11 @@
 
   const octopus = {
     getCats: () => model.cats,
+    getAdmin: () => model.isAdmin,
     init: () => {
       catListView.init();
       catDetailView.init();
+      adminView.init();
     }
   };
 
@@ -94,6 +96,20 @@
         selectedCat.clickCount++;
         this.countEl.textContent = selectedCat.clickCount;
       });
+    }
+  };
+
+  const adminView = {
+    init: function() {
+      this.adminBtn = document.querySelector("#admin");
+      this.adminForm = document.querySelector("#admin-form");
+      this.cancelBtn = document.querySelector("#cancel-form");
+
+      if (octopus.getAdmin()) {
+        this.adminBtn.style.display = "inline-block";
+      } else {
+        this.adminBtn.style.display = "none";
+      }
     }
   };
 
