@@ -1,6 +1,7 @@
 (function() {
   const model = {
     isAdmin: true,
+    currentCat: "",
     cats: [
       {
         catName: "Chewie",
@@ -42,7 +43,8 @@
       catListView.init();
       catDetailView.init();
       adminView.init();
-    }
+    },
+    setCurrentCat: cat => (model.currentCat = cat)
   };
 
   const catListView = {
@@ -52,6 +54,7 @@
       const cats = octopus.getCats();
       this.render(cats);
       this.bindControl(cats);
+      octopus.setCurrentCat(cats[0].catName);
     },
     render: function(cats) {
       cats.forEach(cat => {
@@ -68,6 +71,7 @@
         );
 
         catDetailView.render(selectedCat);
+        octopus.setCurrentCat(selectedCat.catName);
       });
     }
   };
