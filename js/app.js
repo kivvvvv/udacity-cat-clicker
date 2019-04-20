@@ -1,6 +1,7 @@
 const listCatEl = document.querySelector("#cat-list");
 const imgCatEl = document.querySelector("#cat");
 const countEl = document.querySelector("#count");
+const catNameEl = document.querySelector("figcaption");
 
 const catImages = [
   {
@@ -35,10 +36,18 @@ const catImages = [
   }
 ];
 
-listCatEl.addEventListener("click", e => {
-  const catUrl = catImages.find(cat => cat.catName === e.target.textContent);
+window.onload = () => {
+  imgCatEl.setAttribute("src", catImages[0].url);
+  catNameEl.textContent = catImages[0].pictureName;
+};
 
-  imgCatEl.setAttribute("src", catUrl.url);
+listCatEl.addEventListener("click", e => {
+  const selectedCat = catImages.find(
+    cat => cat.catName === e.target.textContent
+  );
+
+  imgCatEl.setAttribute("src", selectedCat.url);
+  catNameEl.textContent = selectedCat.pictureName;
 });
 
 imgCatEl.addEventListener(
