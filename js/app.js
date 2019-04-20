@@ -47,21 +47,21 @@
     init: function() {
       this.listCatEl = document.querySelector("#cat-list");
 
-      const catData = octopus.getCats();
-      this.render(catData);
-      this.bindControl(catData);
+      const cats = octopus.getCats();
+      this.render(cats);
+      this.bindControl(cats);
     },
-    render: function(catData) {
-      catData.forEach(cat => {
+    render: function(cats) {
+      cats.forEach(cat => {
         const catItemEl = document.createElement("li");
         catItemEl.textContent = cat.catName;
 
         this.listCatEl.appendChild(catItemEl);
       });
     },
-    bindControl: function(catData) {
+    bindControl: function(cats) {
       this.listCatEl.addEventListener("click", e => {
-        const selectedCat = catData.find(
+        const selectedCat = cats.find(
           cat => cat.catName === e.target.textContent
         );
 
@@ -76,18 +76,18 @@
       this.countEl = document.querySelector("#count");
       this.catNameEl = document.querySelector("figcaption");
 
-      const catData = octopus.getCats();
-      this.render(catData[0]);
-      this.bindControl(catData);
+      const cats = octopus.getCats();
+      this.render(cats[0]);
+      this.bindControl(cats);
     },
     render: function(cat) {
       this.imgCatEl.setAttribute("src", cat.url);
       this.catNameEl.textContent = cat.pictureName;
       this.countEl.textContent = cat.clickCount;
     },
-    bindControl: function(catData) {
+    bindControl: function(cats) {
       this.imgCatEl.addEventListener("click", e => {
-        const selectedCat = catData.find(
+        const selectedCat = cats.find(
           cat => cat.url === e.target.getAttribute("src")
         );
 
