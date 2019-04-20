@@ -1,62 +1,87 @@
-const listCatEl = document.querySelector("#cat-list");
-const imgCatEl = document.querySelector("#cat");
-const countEl = document.querySelector("#count");
-const catNameEl = document.querySelector("figcaption");
+(function() {
+  const catModel = [
+    {
+      catName: "Chewie",
+      url: "./img/cat-chewie.jpg",
+      pictureName: "Chewie the Cat",
+      clickCount: 0
+    },
+    {
+      catName: "Max",
+      url: "./img/kitten-max.jpg",
+      pictureName: "Little Max",
+      clickCount: 0
+    },
+    {
+      catName: "Tigger",
+      url: "./img/cat-tigger.jpg",
+      pictureName: "Tigger the Cat",
+      clickCount: 0
+    },
+    {
+      catName: "Tom",
+      url: "./img/cat-tom.jpg",
+      pictureName: "Tom the Cat",
+      clickCount: 0
+    },
+    {
+      catName: "Xuxa",
+      url: "./img/kitten-xuxa.jpg",
+      pictureName: "Little Xuxa",
+      clickCount: 0
+    }
+  ];
 
-const catImages = [
-  {
-    catName: "Chewie",
-    url: "./img/cat-chewie.jpg",
-    pictureName: "Chewie the Cat",
-    clickCount: 0
-  },
-  {
-    catName: "Max",
-    url: "./img/kitten-max.jpg",
-    pictureName: "Little Max",
-    clickCount: 0
-  },
-  {
-    catName: "Tigger",
-    url: "./img/cat-tigger.jpg",
-    pictureName: "Tigger the Cat",
-    clickCount: 0
-  },
-  {
-    catName: "Tom",
-    url: "./img/cat-tom.jpg",
-    pictureName: "Tom the Cat",
-    clickCount: 0
-  },
-  {
-    catName: "Xuxa",
-    url: "./img/kitten-xuxa.jpg",
-    pictureName: "Little Xuxa",
-    clickCount: 0
-  }
-];
+  const octopus = {
+    getData: () => catModel
+  };
 
-window.onload = () => {
-  imgCatEl.setAttribute("src", catImages[0].url);
-  catNameEl.textContent = catImages[0].pictureName;
-  countEl.textContent = 0;
-};
+  const view = {
+    init: function() {
+      this.listCatEl = document.querySelector("#cat-list");
+      this.imgCatEl = document.querySelector("#cat");
+      this.countEl = document.querySelector("#count");
+      this.catNameEl = document.querySelector("figcaption");
 
-listCatEl.addEventListener("click", e => {
-  const selectedCat = catImages.find(
-    cat => cat.catName === e.target.textContent
-  );
+      this.renderCatList(octopus.getData());
 
-  imgCatEl.setAttribute("src", selectedCat.url);
-  catNameEl.textContent = selectedCat.pictureName;
-  countEl.textContent = selectedCat.clickCount;
-});
+      const catData = octopus.getData();
+      this.renderCatDetails(catData[0]);
 
-imgCatEl.addEventListener("click", e => {
-  const selectedCat = catImages.find(
-    cat => cat.url === e.target.getAttribute("src")
-  );
+      this.bindCatList(catData);
+    },
+    renderCatList: function(catModel) {
+      catModel.forEach(cat => {
+        const catItemEl = document.createElement("li");
+        catItemEl.textContent = cat.catName;
 
-  selectedCat.clickCount++;
-  countEl.textContent = selectedCat.clickCount;
-});
+        this.listCatEl.appendChild(catItemEl);
+      });
+    },
+    renderCatDetails: function(cat) {
+      this.imgCatEl.setAttribute("src", cat.url);
+      this.catNameEl.textContent = cat.pictureName;
+      this.countEl.textContent = cat.clickCount;
+    },
+    bindCatList: function(catData) {
+      this.listCatEl.addEventListener("click", e => {
+        const selectedCat = catData.find(
+          cat => cat.catName === e.target.textContent
+        );
+
+        this.renderCatDetails(selectedCat);
+      });
+
+      this.imgCatEl.addEventListener("click", e => {
+        const selectedCat = catData.find(
+          cat => cat.url === e.target.getAttribute("src")
+        );
+
+        selectedCat.clickCount++;
+        this.countEl.textContent = selectedCat.clickCount;
+      });
+    }
+  };
+
+  window.onload = () => view.init();
+})();
