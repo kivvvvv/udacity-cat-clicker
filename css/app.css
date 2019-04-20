@@ -1,7 +1,14 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
 main {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  width: 1000px;
 }
 
 figcaption {
@@ -14,6 +21,10 @@ figcaption {
   text-align: center;
   font-weight: bold;
   font-size: 2rem;
+}
+
+#admin-form {
+  display: none;
 }
 
 li:hover {

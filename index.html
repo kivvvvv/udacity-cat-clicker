@@ -4,20 +4,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Cat Clicker</title>
-    <link rel="stylesheet" href="./css/app.css">
+    <link rel="stylesheet" href="./css/app.css" />
   </head>
   <body>
     <main>
       <aside>
         <h1>Select your Kitty</h1>
-        <ul id="cat-list">
-        </ul>
+        <ul id="cat-list"></ul>
       </aside>
       <figure>
         <img id="cat" src="" alt="a cat" />
         <figcaption></figcaption>
         <div id="count" class="count"></div>
       </figure>
+      <aside>
+        <div>
+          <button type="button" id="admin">Admin</button>
+        </div>
+        <form id="admin-form">
+          <label>
+            Cat Name:
+            <input type="text" name="catName" class="input" /> </label
+          ><br />
+          <label>
+            URL:
+            <input type="text" name="catURL" class="input" /> </label
+          ><br />
+          <label>
+            Click Count:
+            <input type="text" name="catClick" class="input" /> </label
+          ><br />
+          <button type="submit">Submit</button>
+          <button type="button">Cancel</button>
+        </form>
+      </aside>
     </main>
     <script src="./js/app.js"></script>
   </body>
