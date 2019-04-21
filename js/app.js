@@ -44,7 +44,27 @@
       catDetailView.init();
       adminView.init();
     },
-    setCurrentCat: cat => (model.currentCat = cat)
+    getCurrentCat: () => model.currentCat,
+    setCurrentCat: cat => (model.currentCat = cat),
+    setCats: function({ catName, url, clickCount }) {
+      const settingCat = this.getCats().find(cat => {
+        return cat.catName === this.getCurrentCat();
+      });
+
+      if (catName) {
+        const newPicName = settingCat.pictureName.replace(
+          settingCat.catName,
+          catName
+        );
+        settingCat.pictureName = newPicName;
+
+        settingCat.catName = catName;
+
+        this.setCurrentCat(catName);
+      }
+      if (url) settingCat.url = url;
+      if (clickCount) settingCat.clickCount = clickCount;
+    }
   };
 
   const catListView = {
@@ -57,6 +77,8 @@
       octopus.setCurrentCat(cats[0].catName);
     },
     render: function(cats) {
+      this.listCatEl.innerHTML = "";
+
       cats.forEach(cat => {
         const catItemEl = document.createElement("li");
         catItemEl.textContent = cat.catName;
@@ -118,6 +140,11 @@
       } else {
         this.adminBtn.style.display = "none";
       }
+
+      this.adminForm.style.display = "none";
+      this.adminForm.elements.catName.value = "";
+      this.adminForm.elements.catURL.value = "";
+      this.adminForm.elements.catClick.value = "";
     },
     bindControl: function() {
       this.adminBtn.addEventListener("click", e => {
@@ -125,7 +152,23 @@
         this.adminForm.style.display = "block";
       });
 
-      this.adminForm.addEventListener("submit", function() {});
+      this.adminForm.addEventListener("submit", e => {
+        e.preventDefault();
+
+        octopus.setCats({
+          catName: e.target.elements.catName.value.trim(),
+          url: e.target.elements.catURL.value.trim(),
+          clickCount: e.target.elements.catClick.value.trim()
+        });
+
+        const cats = octopus.getCats();
+        catListView.render(cats);
+        catDetailView.render(
+          cats.find(cat => cat.catName === octopus.getCurrentCat())
+        );
+
+        this.render(octopus.getAdmin());
+      });
 
       this.cancelBtn.addEventListener("click", () => {
         this.adminForm.style.display = "none";
